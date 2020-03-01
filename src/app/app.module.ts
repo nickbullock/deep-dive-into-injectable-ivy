@@ -1,8 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import {Injectable, InjectionToken, NgModule} from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {ProvidedInModuleModule} from 'src/app/provided-in-module/provided-in-module.module';
+import {SimpleTokenProvider} from 'src/app/token/simple-token';
+
+@Injectable({
+  providedIn: 'root',
+  useFactory: () => new SimpleService()
+})
+class SimpleService {}
 
 @NgModule({
   declarations: [
@@ -10,9 +17,10 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ProvidedInModuleModule
   ],
-  providers: [],
+  providers: [SimpleService, SimpleTokenProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
